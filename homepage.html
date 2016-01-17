@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <html>
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js">
+
+function validateForm() {
+    var x = document.forms["myForm"]["email"].value;
+    var atpos = x.indexOf("@");
+    var dotpos = x.lastIndexOf(".");
+    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+        alert("Not a valid e-mail address");
+        return false;
+    }
+}
+</script>
 
 <head>
   <title>Happy Meal box website</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
   <link href="site.css" rel="stylesheet">
 </head>
 
@@ -12,15 +29,66 @@
   <h2>Please check and order your favourite meal</h2>
 
   <img src="picture.png" alt="happy meal box logo:)" />
+ 
   <a href="about.html" title="to page about.html">About US</a>
 
   <p>Meal options.....</p>
 
 <ul style="list-style-type:disc color:black">
-  <li>Basic Meal (burger, Fries and soft drink)   - 12$</li>
-  <li>Combo meal (burger, pasta with salad, fries and a soft drink)   - 15$</li>
-  <li>Custom Meal(combination like burger, Pasta, sandwich, Pizza and salads with soft drink)  - 20$</li>
+  <li>Basic Meal</li>
+  <li>Combo meal</li>
+  <li>Custom Meal</li>
 </ul> 
+
+<div class="container">
+  <h1>Meal options in detail with prices</h1>    
+ 
+  <dl>
+    <dt>Basic Meal</dt>
+    <dd>- burger, Fries and soft drink   - 12$</dd>
+    <dt>Combo meal</dt>
+    <dd>- burger, pasta with salad, fries and a soft drink   - 15$</dd>
+	<dt>Custom Meal</dt>
+    <dd>- combination like burger, Pasta, sandwich, Pizza and salads with soft drink  - 20$</dd>
+  </dl>     
+</div>
+
+
+<div class="container">
+  <h2>Meal List</h2>                                          
+  <div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" id="menu1" data-toggle="dropdown">Meals Available
+    <span class="caret"></span></button>
+    <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Basic Meal</a></li>
+	   <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Combo meal</a></li>
+	   <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Custom Meal</a></li>
+	        <li role="presentation" class="divider"></li>
+      <li role="presentation"><a role="menuitem" tabindex="-1" href="#">About Us</a></li>
+    </ul>
+  </div>
+</div>
+
+<p>Calculate the price before booking</p>
+<div ng-app="myApp" ng-controller="costCtrl">
+
+Quantity: <input type="number" ng-model="quantity">
+Price: <input type="number" ng-model="price">
+
+<p>Total = {{ (quantity * price) | currency }}</p>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('costCtrl', function($scope) {
+    $scope.quantity = 1;
+    $scope.price = 12.00;
+});
+</script>
+
 
 
 <button type="button" onclick="myFunction()" >Book your meal now!</button>
@@ -34,5 +102,27 @@ function myFunction() {
 }
 </script>
 
+<div class="container">
+
+  <form role="form" action="loggedIN.html" onsubmit="return validateForm();" method="post">
+    <div class="form-group">
+      <label for="email">Email:</label>
+      <input type="email" class="form-control" id="email" placeholder="Enter email">
+    </div>
+    <!--<div class="form-group">
+      <label for="pwd">Password:</label>
+      <input type="password" class="form-control" id="pwd" placeholder="Enter password">
+    </div>-->
+    <div class="checkbox">
+      <label><input type="checkbox"> Remember me</label>
+    </div>
+	<input type="submit" value="Submit">
+    <!--<button type="submit" class="btn btn-default">Submit</button>-->
+  </form>
+</div>
+
+
 </body>
 </html>
+
+
